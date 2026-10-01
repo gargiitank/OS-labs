@@ -36,12 +36,12 @@ int main() {
     return 0;
 }*/
 
-//task 1c:
-//implement a function that takes 2 ptrs to the same type
-//along with a len parameter
-//if the ptrs are not null then check that the elements are the same
-//for length, + return true (1) else false (0)
-//write a main function to test your function
+/*task 1c:
+implement a function that takes 2 ptrs to the same type
+along with a len parameter
+if the ptrs are not null then check that the elements are the same
+for length, + return true (1) else false (0)
+write a main function to test your function
 
 #include <iostream>
 using namespace std;
@@ -73,4 +73,4 @@ int main() {
         cout << "CHECK: FALSE - arrays are different" << endl;
     }
     return 0;
-}
+}*/
