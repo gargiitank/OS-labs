@@ -1,3 +1,4 @@
+
 %include "asm_io.inc"
 
 segment .data
@@ -10,58 +11,78 @@ segment .bss
     name resb 100
     count resd 1
 
-segment .text  
+segment .text
     global asm_main
 
 asm_main:
     pusha
 
-    ; Asking for user's name
+    ; Ask for name
     mov eax, name_prompt
     call print_string
 
-    mov eax, name
-    mov ebx, 100
+    ; Read name one character at a time
+    mov edi, name
+    mov esi, 99
+
+read_name:
     call read_char
 
-    ; Check count > 50
+    ; Check if Enter was pressed
+    cmp al, 10
+    je name_done
+
+    ; Store character
+    mov [edi], al
+    inc edi
+    dec esi
+
+    ; Stop if buffer is full
+    cmp esi, 0
+    jg read_name
+
+name_done:
+    ; Add null terminator
+    mov byte [edi], 0
+
+    ; Ask for number
+    mov eax, number_prompt
+    call print_string
+
+    call read_int
+    mov [count], eax
+
+    ; Validate number
     cmp eax, 50
     jle invalid_input
 
-    ; Check count < 100
     cmp eax, 100
     jge invalid_input
 
-    ; set up loop counter 
+    ; Set loop counter
     mov esi, [count]
 
-welcome_loop: 
-    ; printing "Welcome, "
+welcome_loop:
     mov eax, welcome_msg
     call print_string
 
-    ;printing user's name
     mov eax, name
     call print_string
 
-    call print_nl 
+    call print_nl
 
-    ; decreasing counter by 1
     dec esi
-
-    ;repeating while counter > 0
     cmp esi, 0
     jg welcome_loop
 
-    jmp finished 
+    jmp finished
 
-invalid_input: 
+invalid_input:
     mov eax, error_msg
     call print_string
     call print_nl
 
-finished: 
+finished:
     popa
     mov eax, 0
     ret
-
