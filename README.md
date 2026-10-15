@@ -5,10 +5,32 @@
 
 This program uses x86 assembly to add two integers stored in memory and print the result.
 
-### part 1: output
+### part 1: 
+
+#### Implementation
+
+The two integers are defined in the .data segment using dd, which stores each value as a 32-bit integer. The .bss segemnt reserves memory for the result.
+
+integer1 dd 15
+integer2 dd 6
+
+The following instructions perform the addition:
+
+mov eax, [integer1]
+add eax, [integer2]
+mov [result], eax
+
+- mov eax, [integer1]: loads the first integer into the EAX register
+- add eax, [integer2]: adds the second integer to the value in EAX
+- mov [result], eax: stores the calculated sum in memory
+
+The square brackets [] indicate that the value stored at the specifies memory address is being accessed, rather than the address itself. The result is displaued using print_int, which reads the integer from EAX.
+
+#### Testing and results
+
+Using the predefined values 15 and 6, the program should output 21. This demonstrates how assembly instructions can perform arithmetic operations using registers and memory.
 
 ![Task 1 part 1 program output](screenshots/task1p1output.png)
-
 
 ### part 2: Adding two user-input integers
 
@@ -93,9 +115,82 @@ Result: The program successfully calculates and outputs the sum of the integers 
 
 ![Task 2 Part 2 program output](screenshots/task2p2.png)
 
-### part 3
+### part 3: summing a user-selected range
 
-#### output
+#### Objective
 
-![task 2 part 3 program output](screenshots/task2p3.png)
+This task extends Task2.2 by allowing the user to specify a range of integers to sum, rather than calculating the sum of all 100 elements.
+
+#### Implementation
+
+The program initialises an array with values from 1 to 100 and uses read_int to obtain the starting and ending values from the user.
+
+#### Input Validation
+
+Before calculating the sum, the program checks that the range is valid.
+
+cmp eax, 1
+jl invalid range
+
+cmp ebx, 100
+jg invalid_range
+
+cmp eax, ebx
+jg invalid_range
+
+The cmp instruction compares two values, while conditional jumps such as jl (jump if less) and jg (jump if greater) determine whether the program should display an error message.
+
+These checks ensure that the starting value is at least 1, the ending value is no greater than 100, and the starting value does not exceed the ending value.
+
+#### Array indexing
+
+Because array indexing begins at zero, the starting value must be decreased by one to identify the correct array position.
+
+mov esi, eax
+dec esi
+
+For example, entering 10 as the starting value means the program begins at array index 9.
+
+#### Calculating the Sum
+
+The number of iterations is calculated using:
+
+End - Start + 1
+
+This insures both the starting and ending values are included in the calculation.
+
+sum_range: 
+    add ebx, [numbers + esi*4]
+    inc esi
+    loop sum_range
+
+- EBX: stores the running total
+- ESI: tracks the current array index
+- ECX: controls the number of iterations through the loop instruction
+- ESI*4: calculates the memory offset because each integer occupies 4 bytes 
+
+After the loop finishes, the total is moved into EAX and displayed using print_int.
+
+#### Testing and results
+
+The following test cases can be used to verify the program:
+
+| Starting Value | Ending Value | Expected Output |
+|---|---|---|
+| 10 | 20 | 165 |
+| 1 | 100 | 5050 |
+| 5 | 5 | 5 |
+| 30 | 20 | Error message |
+| 0 | 20 | Error message |
+| 10 | 101 | Error message |
+
+These tests check both the accuracy of the sum and the effectiveness of the input validation.
+
+Valid Range: 
+![task 2 part 3 program valid range output](screenshots/task2p3.png)
+
+Invalid Range:
+![task 2 part 3 program invalid range output](screenshots/task2p3.png)
+
+
 
