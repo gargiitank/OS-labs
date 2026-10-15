@@ -2,7 +2,7 @@
 # Compiler and assembler settings
 NASM = nasm
 CC = gcc
-NASMFLAGS = -f elf
+NASMFLAGS = -f elf -Isrc/
 CFLAGS = -m32
 LDFLAGS = -m32 -no-pie
 
