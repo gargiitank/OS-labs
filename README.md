@@ -89,6 +89,13 @@ Before the second loop, ECX is reset to 100 so that all elements are processed a
 
 Result: The program successfully calculates and outputs the sum of the integers from 1 to 100, which is 5050.
 
-### output
+#### output
 
 ![Task 2 Part 2 program output](screenshots/task2p2.png)
+
+### part 3
+
+#### output
+
+![task 2 part 3 program output](screenshots/task2p3.png)
+
