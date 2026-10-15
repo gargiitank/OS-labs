@@ -7,7 +7,8 @@ This program uses x86 assembly to add two integers stored in memory and print th
 
 ### part 1: output
 
-![Task1 program output](screenshots/task1.png)
+![Task 1 part 1 program output](screenshots/task1p1output.png)
+
 
 ### part 2: Adding two user-input integers
 
@@ -45,6 +46,10 @@ The program was tested with the inputs 15 and 6, producing the expected result o
 ### part 1: welcome messgae
 
 This program asks for the user's name and a number between 51 and 99, then prints a welcome message that many times. 
+
+#### output
+
+![Task 2 part 1 program output](screenshots/task2p1output.png)
 
 ### part 2: summing an array 
 
