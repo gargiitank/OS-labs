@@ -12,6 +12,7 @@ TARGETS = $(addprefix src/,$(PROGRAMS))
 
 # Default target: build everything
 .PHONY: all clean
+.SECONDARY: 
 all: $(TARGETS)
 
 # Assemble each task's .asm file
