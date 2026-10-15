@@ -1,13 +1,44 @@
 # OS-labs
 # operating systems- worksheet 1
 
-## task1 1: adding two integers
+## task 1: adding two integers
 
 This program uses x86 assembly to add two integers stored in memory and print the result.
 
-### output
+### part 1: output
 
 ![Task1 program output](screenshots/task1.png)
+
+### part 2: Adding two user-input integers
+
+This program extends Task1.1 by allowing te user to input two integers rather than using predefined values. The program adds the integers together and displays the calculation anmd result.
+
+#### Reading user input
+
+mov eax, msg1
+call print_string
+call read_int
+mov [integer1], eax
+
+The print_string function displays a prompt asking the user to enter a number. The read_int function reads the user's input and stores it in the EAX register. The value is then moved into the integer1 memory location. This process is repeated for the second integer.
+
+#### Calculating the sum
+
+mov eax, [integer1]
+add eax, [integer2]
+mov [result], eax
+
+The first integer is loaded into EAX, the second integer is added to it, and the result is stored in memory.
+
+#### Displaying the result
+
+The program uses print_string to display text and print_int to display the entered integers and their sum. Unlike Task 1.1, which only displays the result, Task 1.2 shows the full calculation.
+
+#### Testing and output
+
+The program was tested with the inputs 15 and 6, producing the expected result of 21. 
+
+![Task 1 part 2 output](screenshots/task1_2.png)
 
 ## task 2: loops and arrays
 
